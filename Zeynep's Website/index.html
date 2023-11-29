@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Varela&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profit Calculator</title>
+    <style>
+        body {
+            font-family: 'Orbitron', sans-serif;
+            font-family: 'Varela', sans-serif;
+            text-align: center;
+            font-weight: bold;
+            margin: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Profit Calculator</h2>
+
+    <label for="buyPrice">Price I bought (TRY): </label>
+    <input type="number" id="buyPrice" step="0.01" placeholder="Enter buy price">
+
+    <br>
+
+    <label for="netProfit">Net Profit I want (TRY): </label>
+    <input type="number" id="netProfit" step="0.01" placeholder="Enter desired net profit">
+
+    <br>
+
+    <button onclick="calculateSellingPrice()">Calculate Selling Price</button>
+
+    <br><br>
+
+    <h3>Result:</h3>
+    <p id="result"></p>
+    <p id="governmentTaxInfo" style="color: black;"></p>
+
+    <script>
+        function calculateSellingPrice() {
+            // Get input values
+            var buyPrice = parseFloat(document.getElementById("buyPrice").value);
+            var netProfit = parseFloat(document.getElementById("netProfit").value);
+
+            // Calculate selling price without commission
+            var sellingPriceWithoutCommission = buyPrice + netProfit;
+
+            // Calculate commission
+            var commission = 0.20 * sellingPriceWithoutCommission;
+
+            // Calculate final selling price including commission
+            var finalSellingPrice = sellingPriceWithoutCommission + commission;
+
+            // Calculate government tax on the total profit
+            var governmentTax = 0.20 * (sellingPriceWithoutCommission - buyPrice);
+
+            // Display result
+            var resultString = "Selling Price to achieve net profit of " + netProfit + " TRY: " + finalSellingPrice.toFixed(2) + " TRY";
+            resultString += "<br>Commission (20%): " + commission.toFixed(2) + " TRY";
+
+            document.getElementById("result").innerHTML = resultString;
+
+            // Display government tax information
+            var governmentTaxInfo = "Government Tax (20% on total profit): " + governmentTax.toFixed(2) + " TRY";
+            document.getElementById("governmentTaxInfo").innerHTML = governmentTaxInfo;
+        }
+    </script>
+</body>
+</html>
